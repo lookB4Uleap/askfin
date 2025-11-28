@@ -23,7 +23,7 @@ const NEXT_PUBLIC_DISPLAY_MODE = process.env.NEXT_PUBLIC_DISPLAY_MODE
 const SidebarHeader = () => (
   <div className="flex items-center gap-2">
     <Icon type="agno" size="xs" />
-    <span className="text-xs font-medium uppercase text-white">Agent UI</span>
+    <span className="text-xs font-medium uppercase text-white">ARC</span>
   </div>
 )
 
