@@ -9,7 +9,7 @@ import useSessionLoader from '@/hooks/useSessionLoader'
 import SessionItem from './SessionItem'
 import SessionBlankState from './SessionBlankState'
 import { Skeleton } from '@/components/ui/skeleton'
-import { cn } from '@/lib/utils'
+import { cn, verifyJSON } from '@/lib/utils'
 
 interface SkeletonListProps {
   skeletonCount: number
@@ -136,9 +136,9 @@ const Sessions = () => {
     <div className="w-full">
       <div className="mb-2 w-full text-xs font-medium uppercase">Sessions</div>
       <div
-        className={`h-[calc(100vh-345px)] overflow-y-auto font-geist transition-all duration-300 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar]:transition-opacity [&::-webkit-scrollbar]:duration-300 ${
+        className={`font-geist h-[calc(100vh-345px)] overflow-y-auto transition-all duration-300 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar]:transition-opacity [&::-webkit-scrollbar]:duration-300 ${
           isScrolling
-            ? '[&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-background [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar]:opacity-0'
+            ? '[&::-webkit-scrollbar-thumb]:bg-background [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar]:opacity-0'
             : '[&::-webkit-scrollbar]:opacity-100'
         }`}
         onScroll={handleScroll}
@@ -157,7 +157,11 @@ const Sessions = () => {
                 currentSessionId={selectedSessionId}
                 isSelected={selectedSessionId === entry?.session_id}
                 onSessionClick={handleSessionClick(entry?.session_id)}
-                session_name={entry?.session_name ?? '-'}
+                session_name={
+                  verifyJSON(entry?.session_name)?.query ??
+                  entry?.session_name ??
+                  '-'
+                }
                 session_id={entry?.session_id}
                 created_at={entry?.created_at}
               />

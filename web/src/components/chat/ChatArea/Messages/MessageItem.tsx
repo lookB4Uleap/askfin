@@ -69,7 +69,7 @@ const AgentMessage = ({ message }: MessageProps) => {
   }
 
   return (
-    <div className="flex flex-row items-start gap-4 font-geist">
+    <div className="font-geist flex flex-row items-start gap-4">
       <div className="flex-shrink-0">
         <Icon type="agent" size="sm" />
       </div>
@@ -78,14 +78,26 @@ const AgentMessage = ({ message }: MessageProps) => {
   )
 }
 
+const verifyJSON = (str: string) => {
+  try {
+    return JSON.parse(str)
+  } catch (err) {
+    console.log(err)
+    return
+  }
+}
+
 const UserMessage = memo(({ message }: MessageProps) => {
+  const content = verifyJSON(message.content)?.query ?? message.content
+  // const content = message.content
+
   return (
     <div className="flex items-start gap-4 pt-4 text-start max-md:break-words">
       <div className="flex-shrink-0">
         <Icon type="user" size="sm" />
       </div>
-      <div className="text-md rounded-lg font-geist text-secondary">
-        {message.content}
+      <div className="text-md font-geist text-secondary rounded-lg">
+        {content}
       </div>
     </div>
   )

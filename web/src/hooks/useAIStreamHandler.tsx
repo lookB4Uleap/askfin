@@ -147,7 +147,7 @@ const useAIChatStreamHandler = () => {
         let RunUrl: string | null = null
 
         if (mode === 'team' && teamId) {
-          RunUrl = APIRoutes.TeamRun(teamId)
+          RunUrl = APIRoutes.TeamRun(endpointUrl, teamId)
         } else if (mode === 'agent' && agentId) {
           RunUrl = APIRoutes.AgentRunV2(endpointUrl).replace(
             '{agent_id}',

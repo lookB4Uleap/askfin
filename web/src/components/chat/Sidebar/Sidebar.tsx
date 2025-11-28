@@ -17,6 +17,9 @@ import { truncateText } from '@/lib/utils'
 import { Skeleton } from '@/components/ui/skeleton'
 
 const ENDPOINT_PLACEHOLDER = 'NO ENDPOINT ADDED'
+const NEXT_PUBLIC_DISPLAY_AGENT_OS = process.env.NEXT_PUBLIC_DISPLAY_AGENT_OS
+const NEXT_PUBLIC_DISPLAY_MODE = process.env.NEXT_PUBLIC_DISPLAY_MODE
+
 const SidebarHeader = () => (
   <div className="flex items-center gap-2">
     <Icon type="agno" size="xs" />
@@ -115,6 +118,8 @@ const Endpoint = () => {
     await initialize()
     setTimeout(() => setIsRotating(false), 500)
   }
+
+  if (!NEXT_PUBLIC_DISPLAY_AGENT_OS) return null
 
   return (
     <div className="flex flex-col items-start gap-2">
@@ -276,34 +281,36 @@ const Sidebar = ({
             <AuthToken hasEnvToken={hasEnvToken} envToken={envToken} />
             {isEndpointActive && (
               <>
-                <motion.div
-                  className="flex w-full flex-col items-start gap-2"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5, ease: 'easeInOut' }}
-                >
-                  <div className="text-primary text-xs font-medium uppercase">
-                    Mode
-                  </div>
-                  {isEndpointLoading ? (
-                    <div className="flex w-full flex-col gap-2">
-                      {Array.from({ length: 3 }).map((_, index) => (
-                        <Skeleton
-                          key={index}
-                          className="h-9 w-full rounded-xl"
-                        />
-                      ))}
+                {!!NEXT_PUBLIC_DISPLAY_MODE && (
+                  <motion.div
+                    className="flex w-full flex-col items-start gap-2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, ease: 'easeInOut' }}
+                  >
+                    <div className="text-primary text-xs font-medium uppercase">
+                      Mode
                     </div>
-                  ) : (
-                    <>
-                      <ModeSelector />
-                      <EntitySelector />
-                      {selectedModel && (agentId || teamId) && (
-                        <ModelDisplay model={selectedModel} />
-                      )}
-                    </>
-                  )}
-                </motion.div>
+                    {isEndpointLoading ? (
+                      <div className="flex w-full flex-col gap-2">
+                        {Array.from({ length: 3 }).map((_, index) => (
+                          <Skeleton
+                            key={index}
+                            className="h-9 w-full rounded-xl"
+                          />
+                        ))}
+                      </div>
+                    ) : (
+                      <>
+                        <ModeSelector />
+                        <EntitySelector />
+                        {selectedModel && (agentId || teamId) && (
+                          <ModelDisplay model={selectedModel} />
+                        )}
+                      </>
+                    )}
+                  </motion.div>
+                )}
                 <Sessions />
               </>
             )}

@@ -19,7 +19,11 @@ const ChatInput = () => {
   const handleSubmit = async () => {
     if (!inputMessage.trim()) return
 
-    const currentMessage = inputMessage
+    // const currentMessage = inputMessage
+    const currentMessage = JSON.stringify({
+      context: '',
+      query: inputMessage
+    })
     setInputMessage('')
 
     try {

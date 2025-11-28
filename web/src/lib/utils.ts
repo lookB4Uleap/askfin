@@ -42,3 +42,12 @@ export const getJsonMarkdown = (content: object = {}) => {
 
   return jsonBlock
 }
+
+export const verifyJSON = (str: string) => {
+  try {
+    return JSON.parse(str)
+  } catch (err) {
+    console.log(err)
+    return
+  }
+}
