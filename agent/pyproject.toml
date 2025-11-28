@@ -1,0 +1,21 @@
+[project]
+name = "agent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "agno>=2.3.4",
+    "duckduckgo-search>=8.1.1",
+    "fastapi[standard]>=0.122.0",
+    "google-genai>=1.52.0",
+    "pre-commit>=4.5.0",
+    "python-dotenv>=1.2.1",
+    "uvicorn>=0.38.0",
+    "yfinance>=0.2.66",
+]
+
+[dependency-groups]
+dev = [
+    "black>=25.11.0",
+]
