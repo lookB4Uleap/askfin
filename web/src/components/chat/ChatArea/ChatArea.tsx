@@ -9,7 +9,19 @@ import Icon from '@/components/ui/icon'
 const ChatArea = () => {
   return (
     <main className="relative m-1.5 flex flex-grow flex-col rounded-xl bg-background">
-      <div className="absolute right-4 top-4 z-10">
+      <div className="absolute right-4 top-4 z-10 flex gap-2">
+        <Button
+          variant="outline"
+          size="sm"
+          className="gap-2"
+          onClick={() => {
+            const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement
+            fileInput?.click()
+          }}
+        >
+          <Icon type="paperclip" size="sm" />
+          Analyze financial Docs
+        </Button>
         <Link href="/research">
           <Button variant="outline" size="sm" className="gap-2">
             <Icon type="telescope" size="sm" />
