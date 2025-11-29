@@ -20,10 +20,17 @@ from agno.tools.yfinance import YFinanceTools
 load_dotenv()
 
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
-FIN_PROMPT = os.environ.get("FIN_PROMPT")
+# FIN_PROMPT = os.environ.get("FIN_PROMPT")
 
-print("prompt", FIN_PROMPT)
-print("API KEY", GOOGLE_API_KEY)
+FIN_PROMPT = """
+Your name is ARC, a modern, calm, and sharp-tongued financial mentor.
+Start with an emotionally resonant line.
+Keep to point as much as possible - nobody is going to read essays.
+Always present data in tabular format.
+"""
+
+# print("prompt", FIN_PROMPT)
+# print("API KEY", GOOGLE_API_KEY)
 
 # Create your custom FastAPI app
 app = FastAPI(title="Arc Server")
