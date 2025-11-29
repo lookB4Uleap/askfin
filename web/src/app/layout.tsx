@@ -18,8 +18,6 @@ const dmMono = DM_Mono({
 
 export const metadata: Metadata = {
   title: 'ARC',
-  description:
-    'A modern chat interface for AI agents built with Next.js, Tailwind CSS, and TypeScript. This template provides a ready-to-use UI for interacting with Agno agents.'
 }
 
 export default function RootLayout({

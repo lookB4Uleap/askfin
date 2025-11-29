@@ -22,7 +22,7 @@ const NEXT_PUBLIC_DISPLAY_MODE = process.env.NEXT_PUBLIC_DISPLAY_MODE
 
 const SidebarHeader = () => (
   <div className="flex items-center gap-2">
-    <Icon type="agno" size="xs" />
+    <Icon type="gemini" size="xs" />
     <span className="text-xs font-medium uppercase text-white">ARC</span>
   </div>
 )
@@ -178,7 +178,7 @@ const Endpoint = () => {
                   <p className="text-muted text-xs font-medium">
                     {isMounted
                       ? truncateText(selectedEndpoint, 21) ||
-                        ENDPOINT_PLACEHOLDER
+                      ENDPOINT_PLACEHOLDER
                       : 'http://localhost:7777'}
                   </p>
                   <div
