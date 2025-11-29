@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { toast } from 'sonner'
 import { TextArea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
@@ -12,40 +12,39 @@ import { useWidgetContext } from '@/hooks/useWidgetContext'
 const ChatInput = () => {
   const { chatInputRef } = useStore()
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const initialQueryHandled = useRef<boolean>(false)
+  // const initialQueryHandled = useRef<boolean>(false)
 
   const { handleStreamResponse } = useAIChatStreamHandler()
   const [selectedAgent] = useQueryState('agent')
   const [teamId] = useQueryState('team')
-  const [agent] = useQueryState('agent')
-  const [query, setQuery] = useQueryState('q')
-  const [inputMessage, setInputMessage] = useState('')
+  const [query] = useQueryState('q', { defaultValue: '' })
+  const [inputMessage, setInputMessage] = useState(query)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const isStreaming = useStore((state) => state.isStreaming)
 
   const widgetContext = useWidgetContext()
 
-  useEffect(() => {
-    ;(async () => {
-      if (!query || query === '' || initialQueryHandled.current || agent === '')
-        return
-      initialQueryHandled.current = true
+  // useEffect(() => {
+  //   ;(async () => {
+  //     if (!query || query === '' || initialQueryHandled.current || agent === '')
+  //       return
+  //     initialQueryHandled.current = true
 
-      const userContext = JSON.parse(
-        localStorage.getItem('onboarding_data') as string
-      )
+  //     const userContext = JSON.parse(
+  //       localStorage.getItem('onboarding_data') as string
+  //     )
 
-      userContext.name = ''
+  //     userContext.name = ''
 
-      const currentMessage = JSON.stringify({
-        contex: `${widgetContext} ${JSON.stringify(userContext)}`,
-        query
-      })
+  //     const currentMessage = JSON.stringify({
+  //       contex: `${widgetContext} ${JSON.stringify(userContext)}`,
+  //       query
+  //     })
 
-      handleStreamResponse(currentMessage)
-      setQuery(null)
-    })()
-  }, [handleStreamResponse, query, widgetContext, setQuery, agent])
+  //     handleStreamResponse(currentMessage)
+  //     setQuery(null)
+  //   })()
+  // }, [handleStreamResponse, query, widgetContext, setQuery, agent])
 
   const handleSubmit = async () => {
     if (!inputMessage.trim()) return
