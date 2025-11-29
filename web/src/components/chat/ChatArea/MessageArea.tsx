@@ -4,6 +4,9 @@ import { useStore } from '@/store'
 import Messages from './Messages'
 import ScrollToBottom from '@/components/chat/ChatArea/ScrollToBottom'
 import { StickToBottom } from 'use-stick-to-bottom'
+import Widget from '@/components/research/asset/Widget'
+
+// TODO: Disable the center styling
 
 const MessageArea = () => {
   const { messages } = useStore()
@@ -15,6 +18,8 @@ const MessageArea = () => {
       initial="smooth"
     >
       <StickToBottom.Content className="flex min-h-full flex-col justify-center">
+        {/* {symbol !== '' && type === 'chart' && <Chart symbol="BSE:SENSEX" />} */}
+        <Widget />
         <div className="mx-auto w-full max-w-2xl space-y-9 px-4 pb-4">
           <Messages messages={messages} />
         </div>

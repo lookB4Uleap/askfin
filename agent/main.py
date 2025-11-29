@@ -6,6 +6,16 @@ from agno.models.google import Gemini
 from fastapi import FastAPI
 from agno.agent import Agent
 from agno.os import AgentOS
+from agno.tools.yfinance import YFinanceTools
+
+# yftool = YFinanceTools(
+#     stock_price=True,
+#     analyst_recommendations=True,
+#     stock_fundamentals=True,
+#     historical_prices=False,
+#     company_info=False,
+#     company_news=False,
+# )
 
 load_dotenv()
 

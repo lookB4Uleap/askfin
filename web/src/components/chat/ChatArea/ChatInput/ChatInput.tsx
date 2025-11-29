@@ -7,6 +7,7 @@ import { useStore } from '@/store'
 import useAIChatStreamHandler from '@/hooks/useAIStreamHandler'
 import { useQueryState } from 'nuqs'
 import Icon from '@/components/ui/icon'
+import { useWidgetContext } from '@/hooks/useWidgetContext'
 
 const ChatInput = () => {
   const { chatInputRef } = useStore()
@@ -18,12 +19,15 @@ const ChatInput = () => {
   const [inputMessage, setInputMessage] = useState('')
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const isStreaming = useStore((state) => state.isStreaming)
+
+  const context = useWidgetContext()
+
   const handleSubmit = async () => {
     if (!inputMessage.trim()) return
 
     // const currentMessage = inputMessage
     const currentMessage = JSON.stringify({
-      context: '',
+      context,
       query: inputMessage
     })
     setInputMessage('')
