@@ -225,7 +225,7 @@ export default function Step1About({ onNext }: { onNext: () => void }) {
           </Button>
           <Button
             onClick={handleNext}
-            className="bg-pink-300 text-black hover:bg-pink-400"
+            className="bg-orange-600 text-black hover:bg-orange-700"
           >
             NEXT
           </Button>

@@ -309,7 +309,7 @@ export default function Step3LoanInsurance({
           </Button>
           <Button
             onClick={handleSubmit}
-            className="bg-pink-300 text-black hover:bg-pink-400"
+            className="bg-orange-600 text-black hover:bg-orange-700"
           >
             SUBMIT
           </Button>
