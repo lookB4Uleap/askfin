@@ -306,3 +306,10 @@ export interface ChatEntry {
     created_at: number
   }
 }
+
+export interface Symbol {
+  symbol: string
+  type: string
+  exchange: string
+  description: string
+}
