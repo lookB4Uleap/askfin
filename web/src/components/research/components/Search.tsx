@@ -113,7 +113,7 @@ export function Search() {
                   <CommandItem
                     key={result.symbol}
                     value={`${result.symbol}`}
-                    className="text-primary-foreground hover:cursor-pointer"
+                    className="text-white hover:cursor-pointer"
                     onSelect={(currentValue) => {
                       setValue(currentValue === value ? '' : currentValue)
                       setOpen(false)

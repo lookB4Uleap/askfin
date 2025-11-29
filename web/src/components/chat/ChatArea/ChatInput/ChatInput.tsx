@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { toast } from 'sonner'
 import { TextArea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
@@ -12,27 +12,62 @@ import { useWidgetContext } from '@/hooks/useWidgetContext'
 const ChatInput = () => {
   const { chatInputRef } = useStore()
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const initialQueryHandled = useRef<boolean>(false)
 
   const { handleStreamResponse } = useAIChatStreamHandler()
   const [selectedAgent] = useQueryState('agent')
   const [teamId] = useQueryState('team')
+  const [agent] = useQueryState('agent')
+  const [query, setQuery] = useQueryState('q')
   const [inputMessage, setInputMessage] = useState('')
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const isStreaming = useStore((state) => state.isStreaming)
 
-  const context = useWidgetContext()
+  const widgetContext = useWidgetContext()
+
+  useEffect(() => {
+    ;(async () => {
+      if (!query || query === '' || initialQueryHandled.current || agent === '')
+        return
+      initialQueryHandled.current = true
+
+      const userContext = JSON.parse(
+        localStorage.getItem('onboarding_data') as string
+      )
+
+      userContext.name = ''
+
+      const currentMessage = JSON.stringify({
+        contex: `${widgetContext} ${JSON.stringify(userContext)}`,
+        query
+      })
+
+      handleStreamResponse(currentMessage)
+      setQuery(null)
+    })()
+  }, [handleStreamResponse, query, widgetContext, setQuery, agent])
 
   const handleSubmit = async () => {
     if (!inputMessage.trim()) return
 
+    const userContext = JSON.parse(
+      localStorage.getItem('onboarding_data') as string
+    )
+
+    userContext.name = ''
+
+    console.log('user context', userContext)
+    console.log('widget context', widgetContext)
+
     // const currentMessage = inputMessage
     const currentMessage = JSON.stringify({
-      context,
+      contex: `${widgetContext} ${JSON.stringify(userContext)}`,
       query: inputMessage
     })
     setInputMessage('')
     setSelectedFile(null)
 
+    console.log('inputMessage', currentMessage)
     const formData = new FormData()
     formData.append('message', currentMessage)
     if (selectedFile) {
@@ -43,7 +78,8 @@ const ChatInput = () => {
       await handleStreamResponse(formData)
     } catch (error) {
       toast.error(
-        `Error in handleSubmit: ${error instanceof Error ? error.message : String(error)
+        `Error in handleSubmit: ${
+          error instanceof Error ? error.message : String(error)
         }`
       )
     }
@@ -110,7 +146,7 @@ const ChatInput = () => {
           onClick={() => fileInputRef.current?.click()}
           disabled={!(selectedAgent || teamId) || isStreaming}
           size="icon"
-          className="bg-primary text-primaryAccent rounded-xl p-5"
+          className="bg-primary rounded-xl p-5 text-black"
         >
           <Icon type="paperclip" color="primaryAccent" />
         </Button>
@@ -120,7 +156,7 @@ const ChatInput = () => {
             !(selectedAgent || teamId) || !inputMessage.trim() || isStreaming
           }
           size="icon"
-          className="bg-primary text-primaryAccent rounded-xl p-5"
+          className="bg-primary rounded-xl p-5 text-black"
         >
           <Icon type="send" color="primaryAccent" />
         </Button>
