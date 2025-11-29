@@ -96,9 +96,7 @@ const UserMessage = memo(({ message }: MessageProps) => {
       <div className="flex-shrink-0">
         <Icon type="user" size="sm" />
       </div>
-      <div className="text-md font-geist text-secondary rounded-lg">
-        {content}
-      </div>
+      <div className="text-md font-geist rounded-lg text-white">{content}</div>
     </div>
   )
 })
