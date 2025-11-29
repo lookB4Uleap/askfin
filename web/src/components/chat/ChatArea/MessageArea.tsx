@@ -20,9 +20,18 @@ const MessageArea = () => {
       <StickToBottom.Content className="flex min-h-full flex-col justify-center">
         {/* {symbol !== '' && type === 'chart' && <Chart symbol="BSE:SENSEX" />} */}
         <Widget />
-        <div className="mx-auto w-full max-w-2xl space-y-9 px-4 pb-4">
-          <Messages messages={messages} />
-        </div>
+        {messages.length === 0 ? (
+          <div className="flex flex-col items-center justify-center gap-4 px-4 text-center">
+            <h1 className="text-2xl font-bold">
+              Hi, ask anything in finance, analyze financial documents <br /> and do market research
+            </h1>
+            <p className="text-xl text-gray-400">Ready when you are</p>
+          </div>
+        ) : (
+          <div className="mx-auto w-full max-w-2xl space-y-9 px-4 pb-4">
+            <Messages messages={messages} />
+          </div>
+        )}
       </StickToBottom.Content>
       <ScrollToBottom />
     </StickToBottom>
